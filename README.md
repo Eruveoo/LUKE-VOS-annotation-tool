@@ -27,116 +27,53 @@ This application provides an interactive interface for:
 ## Installation
 
 ### 1. Clone the Repository
-
 ```bash
 git clone <repository-url>
 cd vos-annoation_app
 ```
 
 ### 2. Load Required Modules (Cluster/HPC Systems)
-
-On cluster systems, you may need to load modules first. **Python 3.11 or higher is recommended:**
-
+On CSC Puhti or similar clusters, load the core Python data stack and ffmpeg:
 ```bash
-# Check available Python modules
-module avail python
-# or
-module spider python
-
-# Load Python module (use 3.11 or higher if available)
-module load python/3.11
-# or
-module load python/3.12
-# or
-module load python3
-
-# Load ffmpeg module (REQUIRED for video processing)
+module purge
+module load python-data/3.12-25.09
 module load ffmpeg
-
-### 3. Create Python Virtual Environment
-
-```bash
-python3 -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
 ```
 
-### 4. Install PyTorch (Required for SAM-3)
-
-SAM-3 requires PyTorch. Install it before installing SAM-3:
-
+### 3. Create Python Virtual Environment
 ```bash
-# Upgrade pip first
+python3 -m venv venv
+source venv/bin/activate
 python3 -m pip install --upgrade pip
+```
 
-# Install PyTorch with CUDA support
-# Note: PyTorch 2.7.0 may not exist - check PyTorch website for latest version
-# Adjust CUDA version (cu126, cu121, etc.) based on your system
-pip install torch==2.7.0 torchvision torchaudio --index-url https://download.pytorch.org/whl/cu126
-
-# If the above fails, try without version constraint:
-# pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu126
-# Or check https://pytorch.org/get-started/locally/ for the correct command
+### 4. Install Unified Python Dependencies
+This installs PyTorch for CUDA 12.4 and all pre-configured version dependencies from the requirements file:
+```bash
+pip install torch torchvision torchaudio --index-url [https://download.pytorch.org/whl/cu124](https://download.pytorch.org/whl/cu124)
+pip install -r requirements.txt
 ```
 
 ### 5. Install SAM-3
-
-SAM-3 must be installed as a Python package. Clone and install it:
+Note: SAM-3 uses gated models on Hugging Face. You must accept the model terms on their website and run `huggingface-cli login` or run `export HUGGINGFACE_HUB_TOKEN="your_token"` before running the application.
 
 ```bash
-# Clone SAM-3 repository
-# Note: On clusters, git may require module loading or authentication
-# If git is not available, download as ZIP: wget https://github.com/facebookresearch/segment-anything-3/archive/refs/heads/main.zip
-git clone https://github.com/facebookresearch/segment-anything-3.git sam3
+git clone [https://github.com/facebookresearch/sam3.git](https://github.com/facebookresearch/sam3.git) sam3
 cd sam3
-pip install -e .
+pip install -e . --no-deps
 cd ..
-```
-
-**Note**: If SAM-3 uses a gated model, you'll need a Hugging Face token for the first download. Set it as an environment variable:
-
-```bash
-export HUGGINGFACE_HUB_TOKEN="your_token_here"
 ```
 
 ### 6. Install XMem
-
-Clone the XMem repository, download the model, and install dependencies:
-
 ```bash
-# Clone XMem repository
-git clone https://github.com/hkchengrex/XMem.git
-
-# Download XMem model
+git clone [https://github.com/hkchengrex/XMem.git](https://github.com/hkchengrex/XMem.git)
 mkdir -p XMem/saves
 cd XMem/saves
-# Download the model file from the XMem repository releases
-# Check https://github.com/hkchengrex/XMem/releases for the download link
-# For example:
-wget https://github.com/hkchengrex/XMem/releases/download/v1.0/XMem.pth
-# Or download it manually from the releases page
+wget [https://github.com/hkchengrex/XMem/releases/download/v1.0/XMem.pth](https://github.com/hkchengrex/XMem/releases/download/v1.0/XMem.pth)
 cd ../..
-
-# Install XMem dependencies
-cd XMem
-pip install -r requirements.txt
-cd ..
-
-# Verify installation
-ls -la XMem/                    # Should show the XMem directory
-ls -la XMem/saves/XMem.pth      # Should show the model file
-ls -la XMem/eval.py             # Should show the eval script
 ```
 
-**Note**: The XMem repository must be in the same directory as `server.py` (i.e., `./XMem/`), and the model must be at `./XMem/saves/XMem.pth`.
-
-### 7. Install Python Dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
-### 8. Install Frontend Dependencies
-
+### 7. Install Frontend Dependencies
 ```bash
 cd frontend
 npm install
