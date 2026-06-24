@@ -50,7 +50,7 @@ python3 -m pip install --upgrade pip
 ### 4. Install Unified Python Dependencies
 This installs PyTorch for CUDA 12.4 and all pre-configured version dependencies from the requirements file:
 ```bash
-pip install torch torchvision torchaudio --index-url [https://download.pytorch.org/whl/cu124](https://download.pytorch.org/whl/cu124)
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu124
 pip install -r requirements.txt
 ```
 
@@ -58,7 +58,7 @@ pip install -r requirements.txt
 Note: SAM-3 uses gated models on Hugging Face. You must accept the model terms on their website and run `huggingface-cli login` or run `export HUGGINGFACE_HUB_TOKEN="your_token"` before running the application.
 
 ```bash
-git clone [https://github.com/facebookresearch/sam3.git](https://github.com/facebookresearch/sam3.git) sam3
+git clone https://github.com/facebookresearch/sam3.git sam3
 cd sam3
 pip install -e . --no-deps
 cd ..
@@ -66,10 +66,10 @@ cd ..
 
 ### 6. Install XMem
 ```bash
-git clone [https://github.com/hkchengrex/XMem.git](https://github.com/hkchengrex/XMem.git)
+git clone https://github.com/hkchengrex/XMem.git
 mkdir -p XMem/saves
 cd XMem/saves
-wget [https://github.com/hkchengrex/XMem/releases/download/v1.0/XMem.pth](https://github.com/hkchengrex/XMem/releases/download/v1.0/XMem.pth)
+wget https://github.com/hkchengrex/XMem/releases/download/v1.0/XMem.pth
 cd ../..
 ```
 
