@@ -230,5 +230,7 @@ vos-annoation_app/
 
 ## Acknowledgments
 
+This work is supported by the AgData Partnership (Grant agreement number 101197332), co-funded by the European Union under Horizon Europe and by participating Member States and Associated Countries.
+
 - SAM-3: Facebook Research
 - XMem: HK Chengrex et al.
