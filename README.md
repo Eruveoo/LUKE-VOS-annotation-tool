@@ -11,6 +11,8 @@ This application provides an interactive interface for:
 - Correcting and refining masks interactively
 - Exporting annotation results
 
+For a detailed walkthrough of the user interface, setup instructions, and step-by-step annotation workflow, refer to the included [VOS_annotation_tool_report.pdf](./VOS_annotation_tool_report.pdf) tutorial guide.
+
 ## Prerequisites
 
 ### System Requirements
